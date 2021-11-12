@@ -1,0 +1,27 @@
+test_check_login:
+  method: get
+  url: http://127.0.0.1:3000/cellphone/existence/check
+  params:
+    phone: 15738813217
+  cookies:
+  data:
+
+test_get_info:
+  method: get
+  url: http://127.0.0.1:3000/user/account
+  cookies:
+  params:
+  data:
+
+test_update_info:
+  method: get
+  url: http://127.0.0.1:3000/user/account
+  params:
+    gender: 1
+    signature: 测试签名啊
+    city: 440300
+    nickname: 茶可夫siji
+    birthday: 1525918298004
+    province: 440000
+  cookies:
+  data:

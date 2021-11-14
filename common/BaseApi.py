@@ -9,33 +9,32 @@
 import configparser
 import requests
 import yaml
+from first_debug_api.common.Action import *
 
 
 class BaseApi:
-    data = {}
+    data = {}  # {'phone': ''}
+    _host = get_config('host')
 
-    def get_cookies(self):
-        config = configparser.ConfigParser()
-        config.read('./config.ini')
-        items = dict(config.items('api_info'))
-        return eval(items['cookies'])
-
-    def get_yaml(self, path):
-        with open(path, encoding='utf-8') as f:
-            data = yaml.safe_load(f)
-        return data
-
-    def send_request(self):
+    def send_request(self, api_info: dict):
         # data =
         # json =
         # params , 路由由"？"拼接参数
 
+        api_info = str(api_info).replace('${host}', self._host)  # ti huan host
+
+        for i, j in self.data.items():
+            api_info = api_info.replace('${%s}' % i, str(j))  # ${phone}
+
+        api_info = eval(api_info)
+
+        print("\n请求参数：" + str(api_info))
         res = requests.request(  # res 为请求的响应数据对象
-            method=self.data["method"],
-            url=self.data["url"],
-            params=self.data["params"],
-            data=self.data["data"],
-            cookies=self.data["cookies"]
+            method=api_info["method"],
+            url=api_info["url"],
+            params=api_info["params"],
+            data=api_info["data"],
+            cookies=api_info["cookies"]
             # headers={},  # 请求头
             # verify=True,  # 是否验证证书
             # proxies={'http': '127.0.0.1: 8000'},  # 代理
@@ -44,4 +43,5 @@ class BaseApi:
         # print(res.status_code)
         # print(res.text)
         # print(res.headers)
+        print("响应体: " + res.text + "\n")
         return res

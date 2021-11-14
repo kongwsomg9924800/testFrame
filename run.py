@@ -9,21 +9,22 @@
 import pytest as pytest
 import requests
 import configparser
+from common.Action import get_path
 
 
 def save_cookies():
     url = 'http://127.0.0.1:3000/login/cellphone'
-    params = {'phone': '13103759028', 'password': 'DS465441'}
+    params = {'phone': 'xxx', 'password': 'xxx'}
     res = requests.get(url=url, params=params)
     cookies = requests.utils.dict_from_cookiejar(res.cookies)
 
     # cun ru ini wenjian
     config = configparser.ConfigParser()
-    config.read('./config.ini')
+    config.read(get_path('/config.ini'))
     config.set('api_info', 'cookies', str(cookies))
-    config.write(open('./config.ini', 'r+'))
+    config.write(open(get_path('/config.ini'), 'r+'))
 
 
 if __name__ == '__main__':
     save_cookies()
-    pytest.main(['-s', './TestSelfInfo.py'])
+    pytest.main(['-s', 'testcase/TestSelfInfo.py'])

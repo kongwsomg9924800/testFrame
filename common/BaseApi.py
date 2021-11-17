@@ -13,22 +13,28 @@ from first_debug_api.common.Action import *
 
 
 class BaseApi:
-    data = {}  # {'phone': ''}
-    _host = get_config('host')
+    data = {}  # {'phone': ''， 'name'： '3333'}
+    _host = get_config('host')  # 获取/config.ini下的host的值
 
     def send_request(self, api_info: dict):
         # data =
         # json =
         # params , 路由由"？"拼接参数
+        """
+        发送请求：供业务层调用
+        替换url、请求体参数
+        :param api_info: 业务层传递过来的接口信息，包括method、url、params、cookies等
+        :return:
+        """
+        api_info = str(api_info).replace('${host}', self._host)  # 替换url中的host，用的是字符串替换方法replace
 
-        api_info = str(api_info).replace('${host}', self._host)  # ti huan host
+        for i, j in self.data.items():  # 遍历data。第一次：i=phone，j=''，第二次：i=name，j=3333
+            api_info = api_info.replace('${%s}' % i, str(j))  # 将 ${xxx} 替换成data对应键的值
 
-        for i, j in self.data.items():
-            api_info = api_info.replace('${%s}' % i, str(j))  # ${phone}
-
-        api_info = eval(api_info)
+        api_info = eval(api_info)  # 转成字典
 
         print("\n请求参数：" + str(api_info))
+        # 发送请求，将响应赋值给res
         res = requests.request(  # res 为请求的响应数据对象
             method=api_info["method"],
             url=api_info["url"],
@@ -44,4 +50,4 @@ class BaseApi:
         # print(res.text)
         # print(res.headers)
         print("响应体: " + res.text + "\n")
-        return res
+        return res  # 将响应返回

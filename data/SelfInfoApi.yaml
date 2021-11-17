@@ -26,5 +26,48 @@ update_info:
   cookies:
   data:
 
-# 1525918298004
-# 440000
+add_music_list:
+  method: get
+  url: ${host}/playlist/create
+  params:
+    name: ${name}
+    type: ${types}
+    privacy: ${privacy}
+  cookies:
+  data:
+
+register:
+  method: get
+  url: ${host}/register/cellphone
+  params:
+    captcha: ${captcha}
+    phone: ${phone}
+    password: ${password}
+    nickname: ${nickname}
+  cookies:
+  data:
+
+
+captcha_send:
+  method: get
+  url: ${host}/captcha/sent
+  params:
+    phone: ${phone}
+  cookies:
+  data:
+
+new_nickname:
+  method: get
+  url: ${host}/activate/init/profile
+  params:
+    nickname: ${nickname}
+  cookies:
+  data:
+
+get_account_info:
+  method: get
+  url: ${host}/user/detail
+  params:
+    uid: ${uid}
+  cookies:
+  data:

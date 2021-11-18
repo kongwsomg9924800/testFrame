@@ -8,7 +8,7 @@
 '''
 import configparser
 import shutil
-
+import sys
 import yaml
 import os
 
@@ -60,5 +60,3 @@ def del_file(filepath):
         elif os.path.isdir(file_path):
             shutil.rmtree(file_path)
 
-
-# get_path()

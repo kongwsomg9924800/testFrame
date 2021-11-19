@@ -15,7 +15,8 @@ import configparser
 from common.Action import get_path, del_file
 
 
-def save_cookies():  # 保存cookie
+def save_cookies():
+    # 保存cookie
     url = 'http://127.0.0.1:3000/login/cellphone'  # 定义变量，值为请求url
     params = {'phone': '18813963217', 'password': 'a18839770280'}  # 定义变量，值为请求体
     res = requests.get(url=url, params=params)  # 调用python的第三方库requests，传入参数，发送请求。res为收到的响应

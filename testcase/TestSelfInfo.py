@@ -76,4 +76,4 @@ class TestActive:
     @pytest.mark.parametrize('uid', data['test_get_account_info'])
     def test_get_account_info(self, uid):
         res = self.s.get_account_info(uid)
-        self.s.my_assert(res, 'assert res.status_code == 200', uid)
+        self.s.my_assert(res, 'assert res.status_code == 200')

@@ -8,8 +8,8 @@
 '''
 import allure
 import pytest
-from first_debug_api.api.SelfInfo import SelfInfo
-from first_debug_api.common.Action import *
+from api.SelfInfo import SelfInfo
+from common.Action import *
 
 
 @allure.feature('people info')

@@ -6,8 +6,8 @@
 @time:2021/11/128:00 下午
 @DESC : 
 '''
-from first_debug_api.common.BaseApi import BaseApi
-from first_debug_api.common.Action import *
+from common.BaseApi import BaseApi
+from common.Action import *
 
 
 class SelfInfo(BaseApi):

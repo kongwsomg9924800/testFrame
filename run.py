@@ -12,7 +12,8 @@ import os
 import pytest as pytest
 import requests
 import configparser
-from common.Action import get_path, del_file
+from common.Action import get_path, del_file, get_time
+from common.send_email import SendEmail
 
 
 def save_cookies():
@@ -25,9 +26,9 @@ def save_cookies():
     # 存入到ini文件？？？
 
     config = configparser.ConfigParser()  # 调用python的标准库configparser，并实例化
-    config.read(get_path('/config.ini'))  # 读取/config.ini文件，get_path('/config.ini')为自定义方法，作用是获取绝对路径
+    config.read(get_path('/local_config.ini'))  # 读取/config.ini文件，get_path('/config.ini')为自定义方法，作用是获取绝对路径
     config.set('api_info', 'cookies', str(cookies))  # 将ini文件中的api_info标题下的cookies键赋值为str(cookies)
-    config.write(open(get_path('/config.ini'), 'r+'))  # 保存
+    config.write(open(get_path('/local_config.ini'), 'r+'))  # 保存
 
 
 if __name__ == '__main__':  # 程序入口，运行整个项目
@@ -35,8 +36,19 @@ if __name__ == '__main__':  # 程序入口，运行整个项目
     allure_path = get_path('/report/allure/')
     case_path = get_path('/testcase/TestSelfInfo.py')
     del_file(allure_path)
-    pytest.main(['-s', '--alluredir', allure_path, case_path])  # pytest的内置方法 -s 参数是打印详细信息，
-    os.system('allure serve ' + allure_path)  # 运行allure服务
+    html_path = get_path('/report/html_report/' + get_time() + '.html')
+    try:
+        pytest.main(
+            ['-s', '--alluredir', allure_path, case_path, '--html={}'.format(html_path), '--self-contained-html'])  # pytest的内置方法 -s 参数是打印详细信息，
+
+        s = SendEmail()
+        html_file = s.acquire_report_address(get_path('/report/html_report/'))
+        s.send_email(html_file)
+        os.system('allure serve ' + allure_path)  # 运行allure服务
+    except:
+        pass
+
+
     # 'testcase/TestSelfInfo.py' 意思是执行'TestSelfInfo.py'下的所有用例
     # allure测试报告：
     # 1、brew install allure  本机安装allure环境（可以使用allure命令）

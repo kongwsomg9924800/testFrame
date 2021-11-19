@@ -9,20 +9,36 @@
 import configparser
 import shutil
 import sys
+import time
+
 import yaml
 import os
 
 
-def get_config(item: str):
+def get_config(item: str, title='api_info'):
     """
     获取/config.ini文件下，api_info标题下，指定item键的值
+    :param title:
     :param item: 键
     :return:
     """
     config = configparser.ConfigParser()
-    config.read(get_path('/config.ini'))
-    items = dict(config.items('api_info'))
+    config.read(get_path('/local_config.ini'))
+    items = dict(config.items(title))
     return items[item]
+
+
+def get_config_email(title: str):
+    """
+    获取/config.ini文件下，api_info标题下，指定item键的值
+    :param title:
+    :param item: 键
+    :return:
+    """
+    config = configparser.ConfigParser()
+    config.read(get_path('/local_config.ini'))
+    items = dict(config.items(title))
+    return items
 
 
 def get_yaml(path):
@@ -32,7 +48,7 @@ def get_yaml(path):
     :return:
     """
     with open(path, encoding='utf-8') as f:
-        data = yaml.safe_load(f)   # safe_load(f) yaml自带的函数，作用是将读取后的yaml内容转为字典
+        data = yaml.safe_load(f)  # safe_load(f) yaml自带的函数，作用是将读取后的yaml内容转为字典
     return data
 
 
@@ -60,3 +76,6 @@ def del_file(filepath):
         elif os.path.isdir(file_path):
             shutil.rmtree(file_path)
 
+
+def get_time():
+    return time.strftime("%Y-%m-%d %H:%M:%S")

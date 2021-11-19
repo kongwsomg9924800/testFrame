@@ -10,7 +10,7 @@ import logging
 import os
 from logging import handlers
 
-from first_debug_api.common.Action import get_path
+from common.Action import get_path
 
 
 class Logger:

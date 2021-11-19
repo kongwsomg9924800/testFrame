@@ -6,11 +6,9 @@
 @time:2021/11/119:54 下午
 @DESC : 
 '''
-import configparser
 import requests
-import yaml
-from first_debug_api.common.Action import *
-from first_debug_api.common.logs import Logger
+from common.Action import *
+from common.logs import Logger
 
 
 class BaseApi:

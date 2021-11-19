@@ -23,6 +23,7 @@ def save_cookies():
     cookies = requests.utils.dict_from_cookiejar(res.cookies)  # 根据上面的响应（res），提取cookies，并保存后赋值给cookies变量
 
     # 存入到ini文件？？？
+
     config = configparser.ConfigParser()  # 调用python的标准库configparser，并实例化
     config.read(get_path('/config.ini'))  # 读取/config.ini文件，get_path('/config.ini')为自定义方法，作用是获取绝对路径
     config.set('api_info', 'cookies', str(cookies))  # 将ini文件中的api_info标题下的cookies键赋值为str(cookies)

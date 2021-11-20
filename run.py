@@ -6,14 +6,13 @@
 @time:2021/11/128:46 下午
 @DESC : 
 '''
-import logging
 import os
 
 import pytest as pytest
 import requests
 import configparser
 from common.Action import get_path, del_file, get_time
-from common.send_email import SendEmail
+# from common.send_email import SendEmail
 
 
 def save_cookies():

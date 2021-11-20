@@ -41,9 +41,9 @@ if __name__ == '__main__':  # 程序入口，运行整个项目
         pytest.main(
             ['-s', '--alluredir', allure_path, case_path, '--html={}'.format(html_path), '--self-contained-html'])  # pytest的内置方法 -s 参数是打印详细信息，
 
-        s = SendEmail()
-        html_file = s.acquire_report_address(get_path('/report/html_report/'))
-        s.send_email(html_file)
+        # s = SendEmail()
+        # html_file = s.acquire_report_address(get_path('/report/html_report/'))
+        # s.send_email(html_file)
         os.system('allure serve ' + allure_path)  # 运行allure服务
     except:
         pass
